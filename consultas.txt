@@ -1,0 +1,6 @@
+query{
+  findById(id_product:"5"){
+    id_product
+    
+  }
+}
