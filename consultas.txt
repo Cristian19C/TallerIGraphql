@@ -4,3 +4,21 @@ query{
     
   }
 }
+
+mutation {
+    createInventory(input: {
+        id_product: "8",
+        name: "Nuevo Producto",
+        price: 100.0,
+        number: 10,
+        description: "Descripción del Nuevo Producto",
+        brand: "Marca del Nuevo Producto"
+    }) {
+        id_product
+        name
+        price
+        number
+        description
+        brand
+    }
+}
