@@ -15,6 +15,19 @@ const typeDefs = `
     type Query {
         inventories: [Inventory]
         findById(id_product:String): Inventory
+    }, 
+
+    type Mutation {
+        createInventory(input: InventoryInput): Inventory
+    }
+
+    input InventoryInput {
+        id_product: String!
+        name: String!
+        price: Float!
+        number: Int!
+        description: String!
+        brand: String!
     }
 `;
 
@@ -69,11 +82,26 @@ const resolvers = {
             try {
                 console.log(args.id_product);
                 // Realiza una solicitud GET a la API RESTful para obtener un libro por ID
-                const endpoint = `/:${args.id_product}`;
+                const endpoint ='/'+args.id_product;
+                console.log(endpoint);
                 const response = await fetchFromAPI(endpoint);
                 console.log(response);
                 const data = response.data
                 return data;
+            } catch (error) {
+                throw error;
+            }
+        },
+    },
+
+    Mutation: {
+        createInventory: async (parent, args, contextValue, info) => {
+            try {
+                const endpoint = '/'; // Ruta para crear inventario en tu API
+                const response = await fetchFromAPI(endpoint, 'POST', args.input);
+                // console.log(response);
+                const data = response.data
+                return data; // Devuelve la respuesta de la creación
             } catch (error) {
                 throw error;
             }
