@@ -5,6 +5,9 @@ query{
   }
 }
 
+#crear nuevo elemento
+
+
 mutation {
     createInventory(input: {
         id_product: "8",
@@ -13,6 +16,31 @@ mutation {
         number: 10,
         description: "Descripción del Nuevo Producto",
         brand: "Marca del Nuevo Producto"
+    }) {
+        id_product
+        name
+        price
+        number
+        description
+        brand
+    }
+}
+
+#Eliminar
+
+mutation {
+    deleteInventory(id_product: "64f66dc82c1e7707586054a8")
+}
+
+
+
+mutation {
+    updateInventory(id_product: "64f66274079df8d12fb57928", input: {
+        name: "Pedro",
+        price: 200.0,
+        number: 5,
+        description: "Nueva Descripción",
+        brand: "Nueva Marca"
     }) {
         id_product
         name

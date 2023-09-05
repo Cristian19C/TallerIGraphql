@@ -18,7 +18,9 @@ const typeDefs = `
     }, 
 
     type Mutation {
-        createInventory(input: InventoryInput): Inventory
+        createInventory(input: InventoryInput): Inventory,
+        deleteInventory(id_product: String!): Boolean,
+        updateInventory(id_product: String!, input: InventoryInput): Inventory
     }
 
     input InventoryInput {
@@ -106,7 +108,37 @@ const resolvers = {
                 throw error;
             }
         },
+
+        deleteInventory: async (parent, args, contextValue, info) => {
+            try {
+                const { id_product } = args;
+                const endpoint = '/'+args.id_product; // Ruta para eliminar inventario en tu API
+                const response = await fetchFromAPI(endpoint, 'DELETE');
+
+                const success = response.state === true;
+                return success; // Devuelve true o false según la respuesta de la eliminación
+            } catch (error) {
+                throw error;
+            }
+        },
+
+        updateInventory: async (parent, args, contextValue, info) => {
+            try {
+                const { id_product, input } = args;
+                console.log("entro");
+                const endpoint = '/'+args.id_product; // Ruta para actualizar inventario en tu API
+                const response = await fetchFromAPI(endpoint, 'PUT', input);
+                const data = response.data
+                return data; // Devuelve el inventario actualizado
+            } catch (error) {
+                throw error;
+            }
+        },
+    
+        
     },
+   
+      
 
     
 };
