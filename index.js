@@ -4,6 +4,7 @@ import {startStandaloneServer} from '@apollo/server/standalone'
 const typeDefs = `
 
     type Inventory {
+        _id: String
         id_product: String
         name: String
         price: Float
@@ -21,6 +22,7 @@ const typeDefs = `
         createInventory(input: InventoryInput): Inventory,
         deleteInventory(id_product: String!): Boolean,
         updateInventory(id_product: String!, input: InventoryInput): Inventory
+
     }
 
     input InventoryInput {
@@ -103,7 +105,7 @@ const resolvers = {
                 const response = await fetchFromAPI(endpoint, 'POST', args.input);
                 // console.log(response);
                 const data = response.data
-                return data; // Devuelve la respuesta de la creación
+                return data; // Devuelve la respuesta de la actualizacion
             } catch (error) {
                 throw error;
             }
